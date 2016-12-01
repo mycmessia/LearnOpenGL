@@ -33,6 +33,8 @@ void main()
     // Diffuse
     vec3 norm = normalize(Normal);
     // vec3 lightDir = normalize(light.position - FragPos);
+    // If I change the -light.direction to light.direction
+    // the light will caster from another side which is opposite from the first one
     vec3 lightDir = normalize(-light.direction);    // This is the only different
     float diff = max(dot(norm, lightDir), 0.0);
     vec3 diffuse = light.diffuse * diff * vec3(texture(material.diffuse, TexCoords));

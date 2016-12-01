@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:Tutorials/TutorialPLightCaster/TutorialPLightCaster.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Tutorials/TutorialDLightCaster/TutorialDLightCaster.xcodeproj">
    </FileRef>
    <FileRef
