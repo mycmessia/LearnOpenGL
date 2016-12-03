@@ -141,8 +141,8 @@ private:
         }
         
         // Process materials
-//        if(mesh->mMaterialIndex >= 0)   // this member is an unsigned int so this if statement is useless
-//        {
+        if(mesh->mMaterialIndex >= 0)   // this member is an unsigned int so this if statement is useless
+        {
             aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
             // We assume a convention for sampler names in the shaders. Each diffuse texture should be named
             // as 'texture_diffuseN' where N is a sequential number ranging from 1 to MAX_SAMPLER_NUMBER.
@@ -157,7 +157,7 @@ private:
             // 2. Specular maps
             vector<Texture> specularMaps = this->loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
             textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
-//        }
+        }
         
         // Return a mesh object created from the extracted mesh data
         return Mesh(vertices, indices, textures);
