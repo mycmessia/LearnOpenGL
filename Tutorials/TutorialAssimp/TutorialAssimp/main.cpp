@@ -47,6 +47,9 @@ bool firstMouse = true;
 GLfloat deltaTime = 0.0f;
 GLfloat lastFrame = 0.0f;
 
+// Light attributes
+glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+
 // The MAIN function, from here we start our application and run our Game loop
 int main()
 {
@@ -107,6 +110,19 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
         shader.Use();   // <-- Don't forget this one!
+        
+        GLint lightPosLoc = glGetUniformLocation(shader.Program, "light.position");
+        GLint viewPosLoc  = glGetUniformLocation(shader.Program, "viewPos");
+        glUniform3f(lightPosLoc, lightPos.x, lightPos.y, lightPos.z);
+        glUniform3f(viewPosLoc,  camera.Position.x, camera.Position.y, camera.Position.z);
+        // Set lights properties
+        glUniform3f(glGetUniformLocation(shader.Program, "light.ambient"),   0.2f, 0.2f, 0.2f);
+        glUniform3f(glGetUniformLocation(shader.Program, "light.diffuse"),   0.8f, 0.8f, 0.8f);
+        glUniform3f(glGetUniformLocation(shader.Program, "light.specular"),  1.0f, 1.0f, 1.0f);
+        glUniform1f(glGetUniformLocation(shader.Program, "light.constant"),  1.0f);
+        glUniform1f(glGetUniformLocation(shader.Program, "light.linear"),    0.09);
+        glUniform1f(glGetUniformLocation(shader.Program, "light.quadratic"), 0.032);
+
         // Transformation matrices
         glm::mat4 projection = glm::perspective(camera.Zoom, (float)screenWidth/(float)screenHeight, 0.1f, 100.0f);
         glm::mat4 view = camera.GetViewMatrix();
