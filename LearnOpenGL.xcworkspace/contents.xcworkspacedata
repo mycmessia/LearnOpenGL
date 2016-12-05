@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/meiyuchen/Workspaces/LearnOpenGL/Tutorials/TutorialDepthTesting/TutorialStencilTest.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Tutorials/TutorialDepthTest/TutorialDepthTest.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Tutorials/TutorialAssimp/TutorialAssimp.xcodeproj">
    </FileRef>
    <FileRef

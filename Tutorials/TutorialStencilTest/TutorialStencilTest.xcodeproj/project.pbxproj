@@ -1,0 +1,284 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		090E5B971DF57D0300699792 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 090E5B961DF57D0300699792 /* main.cpp */; };
+		090E5B9E1DF57D2200699792 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 090E5B9D1DF57D2200699792 /* OpenGL.framework */; };
+		090E5BA01DF57D2C00699792 /* libSOIL.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 090E5B9F1DF57D2C00699792 /* libSOIL.dylib */; };
+		090E5BA21DF57D3900699792 /* libGLEW.2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 090E5BA11DF57D3900699792 /* libGLEW.2.0.0.dylib */; };
+		090E5BA41DF57D4500699792 /* libglfw3.3.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 090E5BA31DF57D4500699792 /* libglfw3.3.2.dylib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		090E5B911DF57D0300699792 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		090E5B931DF57D0300699792 /* TutorialStencilTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TutorialStencilTest; sourceTree = BUILT_PRODUCTS_DIR; };
+		090E5B961DF57D0300699792 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		090E5B9D1DF57D2200699792 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		090E5B9F1DF57D2C00699792 /* libSOIL.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libSOIL.dylib; path = ../../../../../../opt/local/lib/libSOIL.dylib; sourceTree = "<group>"; };
+		090E5BA11DF57D3900699792 /* libGLEW.2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.0.0.dylib; path = ../../../../../../usr/local/Cellar/glew/2.0.0/lib/libGLEW.2.0.0.dylib; sourceTree = "<group>"; };
+		090E5BA31DF57D4500699792 /* libglfw3.3.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw3.3.2.dylib; path = ../../../../../../usr/local/Cellar/glfw3/3.2.1/lib/libglfw3.3.2.dylib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		090E5B901DF57D0300699792 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				090E5BA41DF57D4500699792 /* libglfw3.3.2.dylib in Frameworks */,
+				090E5BA21DF57D3900699792 /* libGLEW.2.0.0.dylib in Frameworks */,
+				090E5BA01DF57D2C00699792 /* libSOIL.dylib in Frameworks */,
+				090E5B9E1DF57D2200699792 /* OpenGL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		090E5B8A1DF57D0300699792 = {
+			isa = PBXGroup;
+			children = (
+				090E5BA31DF57D4500699792 /* libglfw3.3.2.dylib */,
+				090E5BA11DF57D3900699792 /* libGLEW.2.0.0.dylib */,
+				090E5B9F1DF57D2C00699792 /* libSOIL.dylib */,
+				090E5B9D1DF57D2200699792 /* OpenGL.framework */,
+				090E5B951DF57D0300699792 /* TutorialDepthTesting */,
+				090E5B941DF57D0300699792 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		090E5B941DF57D0300699792 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				090E5B931DF57D0300699792 /* TutorialStencilTest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		090E5B951DF57D0300699792 /* TutorialDepthTesting */ = {
+			isa = PBXGroup;
+			children = (
+				090E5B961DF57D0300699792 /* main.cpp */,
+			);
+			name = TutorialDepthTesting;
+			path = TutorialStencilTest;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		090E5B921DF57D0300699792 /* TutorialStencilTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 090E5B9A1DF57D0300699792 /* Build configuration list for PBXNativeTarget "TutorialStencilTest" */;
+			buildPhases = (
+				090E5B8F1DF57D0300699792 /* Sources */,
+				090E5B901DF57D0300699792 /* Frameworks */,
+				090E5B911DF57D0300699792 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TutorialStencilTest;
+			productName = TutorialDepthTesting;
+			productReference = 090E5B931DF57D0300699792 /* TutorialStencilTest */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		090E5B8B1DF57D0300699792 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "梅宇宸";
+				TargetAttributes = {
+					090E5B921DF57D0300699792 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+				};
+			};
+			buildConfigurationList = 090E5B8E1DF57D0300699792 /* Build configuration list for PBXProject "TutorialStencilTest" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 090E5B8A1DF57D0300699792;
+			productRefGroup = 090E5B941DF57D0300699792 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				090E5B921DF57D0300699792 /* TutorialStencilTest */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		090E5B8F1DF57D0300699792 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				090E5B971DF57D0300699792 /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		090E5B981DF57D0300699792 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		090E5B991DF57D0300699792 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		090E5B9B1DF57D0300699792 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
+					/opt/local/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+					/usr/local/Cellar/glew/2.0.0/lib,
+					/usr/local/Cellar/glfw3/3.2.1/lib,
+				);
+				PRODUCT_NAME = TutorialStencilTest;
+			};
+			name = Debug;
+		};
+		090E5B9C1DF57D0300699792 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
+					/opt/local/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+					/usr/local/Cellar/glew/2.0.0/lib,
+					/usr/local/Cellar/glfw3/3.2.1/lib,
+				);
+				PRODUCT_NAME = TutorialStencilTest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		090E5B8E1DF57D0300699792 /* Build configuration list for PBXProject "TutorialStencilTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				090E5B981DF57D0300699792 /* Debug */,
+				090E5B991DF57D0300699792 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		090E5B9A1DF57D0300699792 /* Build configuration list for PBXNativeTarget "TutorialStencilTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				090E5B9B1DF57D0300699792 /* Debug */,
+				090E5B9C1DF57D0300699792 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 090E5B8B1DF57D0300699792 /* Project object */;
+}
