@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:Tutorials/TutorialBlending/TutorialBlending.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Tutorials/TutorialStencilTest/TutorialStencilTest.xcodeproj">
    </FileRef>
    <FileRef
