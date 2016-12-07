@@ -285,6 +285,11 @@ GLuint loadTexture(const GLchar* path, GLboolean alpha)
     glGenTextures(1, &textureID);
     int width,height;
     unsigned char* image = SOIL_load_image(path, &width, &height, 0, alpha ? SOIL_LOAD_RGBA : SOIL_LOAD_RGB);
+    
+    if (image == nullptr)
+    {
+        std::cout << path << " does not exist!" << std::endl;
+    }
     // Assign texture to ID
     glBindTexture(GL_TEXTURE_2D, textureID);
     glTexImage2D(GL_TEXTURE_2D, 0, alpha ? GL_RGBA : GL_RGB, width, height, 0, alpha ? GL_RGBA : GL_RGB, GL_UNSIGNED_BYTE, image);
