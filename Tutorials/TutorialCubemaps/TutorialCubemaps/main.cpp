@@ -79,7 +79,7 @@ int main()
     glDepthFunc(GL_LESS);
     
     // Setup and compile our shaders
-    Shader shader(SHADER_FULL_DIR"reflection.vs", SHADER_FULL_DIR"reflection.frag");
+    Shader shader(SHADER_FULL_DIR"reflection.vs", SHADER_FULL_DIR"refraction.frag");
     Shader skyboxShader(SHADER_FULL_DIR"skybox.vs", SHADER_FULL_DIR"skybox.frag");
     
 #pragma region "object_initialization"
