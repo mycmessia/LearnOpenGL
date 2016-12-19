@@ -24,5 +24,5 @@ void main()
     if(reflect_intensity > 0.1) // Only sample reflections when above a certain treshold
         reflect_color = texture(skybox, R) * reflect_intensity;
     // Combine them
-    color = reflect_color;
+    color = diffuse_color + reflect_color;
 }
