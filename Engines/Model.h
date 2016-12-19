@@ -9,7 +9,6 @@
 #ifndef Model_h
 #define Model_h
 
-#pragma once
 // Std. Includes
 #include <string>
 #include <fstream>
@@ -38,7 +37,7 @@ class Model
 public:
     /*  Functions   */
     // Constructor, expects a filepath to a 3D model.
-    Model(const GLchar* path)
+    Model(GLchar* path)
     {
         this->loadModel(path);
     }
@@ -83,13 +82,15 @@ private:
         for(GLuint i = 0; i < node->mNumMeshes; i++)
         {
             // The node object only contains indices to index the actual objects in the scene.
-            // The scene contains all the data, node is just to keep stuff organized (like relations between nodes).
+            // The scene contains all the data, node is just to keep stuff organized.
             aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
             this->meshes.push_back(this->processMesh(mesh, scene));
         }
         // After we've processed all of the meshes (if any) we then recursively process each of the children nodes
         for(GLuint i = 0; i < node->mNumChildren; i++)
         {
+            // Child nodes are actually stored in the node, not in the scene (which makes sense since nodes only contain
+            // links and indices, nothing more, so why store that in the scene)
             this->processNode(node->mChildren[i], scene);
         }
         
@@ -139,9 +140,8 @@ private:
             for(GLuint j = 0; j < face.mNumIndices; j++)
                 indices.push_back(face.mIndices[j]);
         }
-        
         // Process materials
-        if(mesh->mMaterialIndex >= 0)   // this member is an unsigned int so this if statement is useless
+        if(mesh->mMaterialIndex >= 0)
         {
             aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
             // We assume a convention for sampler names in the shaders. Each diffuse texture should be named
@@ -157,6 +157,9 @@ private:
             // 2. Specular maps
             vector<Texture> specularMaps = this->loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
             textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+            // 3. Reflection maps (Note that ASSIMP doesn't load reflection maps properly from wavefront objects, so we'll cheat a little by defining the reflection maps as ambient maps in the .obj file, which ASSIMP is able to load)
+            vector<Texture> reflectionMaps = this->loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_reflection");
+            textures.insert(textures.end(), reflectionMaps.begin(), reflectionMaps.end());
         }
         
         // Return a mesh object created from the extracted mesh data
@@ -222,4 +225,4 @@ GLint TextureFromFile(const char* path, string directory)
     return textureID;
 }
 
-#endif /* Model_h */
+#endif

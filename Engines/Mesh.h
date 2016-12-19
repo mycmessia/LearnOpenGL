@@ -1,6 +1,6 @@
 //
 //  Mesh.h
-//  
+//
 //
 //  Created by 梅宇宸 on 12/3/16.
 //
@@ -9,7 +9,6 @@
 #ifndef Mesh_h
 #define Mesh_h
 
-#pragma once
 // Std. Includes
 #include <string>
 #include <fstream>
@@ -21,8 +20,6 @@ using namespace std;
 #include <GL/glew.h> // Contains all the necessery OpenGL includes
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-
-#include "Shader.h"
 
 
 struct Vertex {
@@ -65,6 +62,8 @@ public:
         // Bind appropriate textures
         GLuint diffuseNr = 1;
         GLuint specularNr = 1;
+        GLuint reflectionNr = 1;
+        
         for(GLuint i = 0; i < this->textures.size(); i++)
         {
             glActiveTexture(GL_TEXTURE0 + i); // Active proper texture unit before binding
@@ -76,27 +75,24 @@ public:
                 ss << diffuseNr++; // Transfer GLuint to stream
             else if(name == "texture_specular")
                 ss << specularNr++; // Transfer GLuint to stream
+            else if(name == "texture_reflection")	// We'll now also need to add the code to set and bind to reflection textures
+                ss << reflectionNr++;
             number = ss.str();
             // Now set the sampler to the correct texture unit
             glUniform1i(glGetUniformLocation(shader.Program, (name + number).c_str()), i);
+            
             // And finally bind the texture
             glBindTexture(GL_TEXTURE_2D, this->textures[i].id);
         }
+        glActiveTexture(GL_TEXTURE0); // Always good practice to set everything back to defaults once configured.
         
         // Also set each mesh's shininess property to a default value (if you want you could extend this to another mesh property and possibly change this value)
-        glUniform1f(glGetUniformLocation(shader.Program, "material.shininess"), 16.0f);
+        //glUniform1f(glGetUniformLocation(shader.Program, "material.shininess"), 16.0f);
         
         // Draw mesh
         glBindVertexArray(this->VAO);
         glDrawElements(GL_TRIANGLES, (GLsizei)this->indices.size(), GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
-        
-        // Always good practice to set everything back to defaults once configured.
-        for (GLuint i = 0; i < this->textures.size(); i++)
-        {
-            glActiveTexture(GL_TEXTURE0 + i);
-            glBindTexture(GL_TEXTURE_2D, 0);
-        }
     }
     
 private:
@@ -138,4 +134,5 @@ private:
     }
 };
 
-#endif /* Mesh_h */
+
+#endif

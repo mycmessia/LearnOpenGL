@@ -197,7 +197,7 @@ int main()
     glBindVertexArray(0);
     
     // Load textures
-    GLuint cubeTexture = loadTexture(TEXTURE_FULL_DIR"container.jpg");
+//    GLuint cubeTexture = loadTexture(TEXTURE_FULL_DIR"container.jpg");
 #pragma endregion
     
     // Cubemap (Skybox)

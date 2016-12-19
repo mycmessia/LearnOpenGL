@@ -1,13 +1,7 @@
-//
-//  main.cpp
-//  TutorialAssimp
-//
-//  Created by 梅宇宸 on 12/3/16.
-//  Copyright © 2016 梅宇宸. All rights reserved.
-//  Assimp is installed in /usr/local/Cellar/assimp/3.3.1: 55 files, 7.9M by homebrew
-
 // Std. Includes
 #include <string>
+#include <algorithm>
+using namespace std;
 
 // GLEW
 #define GLEW_STATIC
@@ -37,9 +31,11 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void Do_Movement();
+GLuint loadTexture(GLchar* path, GLboolean alpha = false);
+GLuint loadCubemap(vector<const GLchar*> faces);
 
 // Camera
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+Camera camera(glm::vec3(0.0f, 10.0f, 3.0f));
 bool keys[1024];
 GLfloat lastX = 400, lastY = 300;
 bool firstMouse = true;
@@ -47,8 +43,7 @@ bool firstMouse = true;
 GLfloat deltaTime = 0.0f;
 GLfloat lastFrame = 0.0f;
 
-// Light attributes
-glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+
 
 // The MAIN function, from here we start our application and run our Game loop
 int main()
@@ -75,6 +70,7 @@ int main()
     // Initialize GLEW to setup the OpenGL Function pointers
     glewExperimental = GL_TRUE;
     glewInit();
+    glGetError(); // Debug GLEW bug fix
     
     int viewWidth, viewHeight;
     // This step is a must for retina maybe
@@ -83,14 +79,84 @@ int main()
     
     // Setup some OpenGL options
     glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
     
     // Setup and compile our shaders
-    Shader shader(SHADER_FULL_DIR"modelLoadingVertex.glsl", SHADER_FULL_DIR"modelLoadingFrag.glsl");
+    Shader shader(SHADER_FULL_DIR"modelReflection.vs", SHADER_FULL_DIR"modelReflection.frag");
+    Shader skyboxShader(SHADER_FULL_DIR"skybox.vs", SHADER_FULL_DIR"skybox.frag");
     
-    // Load models
-    Model ourModel(MODEL_FULL_DIR"nanosuit/nanosuit.obj");
+#pragma region "object_initialization"
+    GLfloat skyboxVertices[] = {
+        // Positions
+        -1.0f,  1.0f, -1.0f,
+        -1.0f, -1.0f, -1.0f,
+        1.0f, -1.0f, -1.0f,
+        1.0f, -1.0f, -1.0f,
+        1.0f,  1.0f, -1.0f,
+        -1.0f,  1.0f, -1.0f,
+        
+        -1.0f, -1.0f,  1.0f,
+        -1.0f, -1.0f, -1.0f,
+        -1.0f,  1.0f, -1.0f,
+        -1.0f,  1.0f, -1.0f,
+        -1.0f,  1.0f,  1.0f,
+        -1.0f, -1.0f,  1.0f,
+        
+        1.0f, -1.0f, -1.0f,
+        1.0f, -1.0f,  1.0f,
+        1.0f,  1.0f,  1.0f,
+        1.0f,  1.0f,  1.0f,
+        1.0f,  1.0f, -1.0f,
+        1.0f, -1.0f, -1.0f,
+        
+        -1.0f, -1.0f,  1.0f,
+        -1.0f,  1.0f,  1.0f,
+        1.0f,  1.0f,  1.0f,
+        1.0f,  1.0f,  1.0f,
+        1.0f, -1.0f,  1.0f,
+        -1.0f, -1.0f,  1.0f,
+        
+        -1.0f,  1.0f, -1.0f,
+        1.0f,  1.0f, -1.0f,
+        1.0f,  1.0f,  1.0f,
+        1.0f,  1.0f,  1.0f,
+        -1.0f,  1.0f,  1.0f,
+        -1.0f,  1.0f, -1.0f,
+        
+        -1.0f, -1.0f, -1.0f,
+        -1.0f, -1.0f,  1.0f,
+        1.0f, -1.0f, -1.0f,
+        1.0f, -1.0f, -1.0f,
+        -1.0f, -1.0f,  1.0f,
+        1.0f, -1.0f,  1.0f
+    };
+    // Setup skybox VAO
+    GLuint skyboxVAO, skyboxVBO;
+    glGenVertexArrays(1, &skyboxVAO);
+    glGenBuffers(1, &skyboxVBO);
+    glBindVertexArray(skyboxVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, skyboxVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), &skyboxVertices, GL_STATIC_DRAW);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+    glBindVertexArray(0);
     
-    // Draw in wireframe
+#pragma endregion
+    
+    // Cubemap (Skybox)
+    vector<const GLchar*> faces;
+    faces.push_back(TEXTURE_FULL_DIR"skybox/right.jpg");
+    faces.push_back(TEXTURE_FULL_DIR"skybox/left.jpg");
+    faces.push_back(TEXTURE_FULL_DIR"skybox/top.jpg");
+    faces.push_back(TEXTURE_FULL_DIR"skybox/bottom.jpg");
+    faces.push_back(TEXTURE_FULL_DIR"skybox/back.jpg");
+    faces.push_back(TEXTURE_FULL_DIR"skybox/front.jpg");
+    GLuint skyboxTexture = loadCubemap(faces);
+    
+    // Load nanosuit using our model loader
+    Model nanosuit(MODEL_FULL_DIR"nanosuit_reflection/nanosuit.obj");
+    
+    // Draw as wireframe
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     
     // Game loop
@@ -105,36 +171,42 @@ int main()
         glfwPollEvents();
         Do_Movement();
         
-        // Clear the colorbuffer
-        glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
+        // Clear buffers
+        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
-        shader.Use();   // <-- Don't forget this one!
         
-        GLint lightPosLoc = glGetUniformLocation(shader.Program, "light.position");
-        GLint viewPosLoc  = glGetUniformLocation(shader.Program, "viewPos");
-        glUniform3f(lightPosLoc, lightPos.x, lightPos.y, lightPos.z);
-        glUniform3f(viewPosLoc,  camera.Position.x, camera.Position.y, camera.Position.z);
-        // Set lights properties
-        glUniform3f(glGetUniformLocation(shader.Program, "light.ambient"),   0.2f, 0.2f, 0.2f);
-        glUniform3f(glGetUniformLocation(shader.Program, "light.diffuse"),   0.8f, 0.8f, 0.8f);
-        glUniform3f(glGetUniformLocation(shader.Program, "light.specular"),  1.0f, 1.0f, 1.0f);
-        glUniform1f(glGetUniformLocation(shader.Program, "light.constant"),  1.0f);
-        glUniform1f(glGetUniformLocation(shader.Program, "light.linear"),    0.09);
-        glUniform1f(glGetUniformLocation(shader.Program, "light.quadratic"), 0.032);
-
-        // Transformation matrices
-        glm::mat4 projection = glm::perspective(camera.Zoom, (float)screenWidth/(float)screenHeight, 0.1f, 100.0f);
-        glm::mat4 view = camera.GetViewMatrix();
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
-        
-        // Draw the loaded model
+        // Draw scene as normal
+        shader.Use();
         glm::mat4 model;
-        model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // Translate it down a bit so it's at the center of the scene
-        model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));	// It's a bit too big for our scene, so scale it down
+        glm::mat4 view = camera.GetViewMatrix();
+        glm::mat4 projection = glm::perspective(camera.Zoom, (float)screenWidth/(float)screenHeight, 0.1f, 100.0f);
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-        ourModel.Draw(shader);
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+        glUniform3f(glGetUniformLocation(shader.Program, "cameraPos"), camera.Position.x, camera.Position.y, camera.Position.z);
+        
+        glActiveTexture(GL_TEXTURE3); // We already have 3 texture units active (in this shader) so set the skybox as the 4th texture unit (texture units are 0 based so index number 3)
+        glUniform1i(glGetUniformLocation(shader.Program, "skybox"), 3);
+        // Now draw the nanosuit
+        glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxTexture);
+        nanosuit.Draw(shader);
+        
+        // Draw skybox as last
+        glDepthFunc(GL_LEQUAL);  // Change depth function so depth test passes when values are equal to depth buffer's content
+        skyboxShader.Use();
+        view = glm::mat4(glm::mat3(camera.GetViewMatrix()));	// Remove any translation component of the view matrix
+        glUniformMatrix4fv(glGetUniformLocation(skyboxShader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
+        glUniformMatrix4fv(glGetUniformLocation(skyboxShader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+        // skybox cube
+        glBindVertexArray(skyboxVAO);
+        glActiveTexture(GL_TEXTURE0);
+        glUniform1i(glGetUniformLocation(shader.Program, "skybox"), 0);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxTexture);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+        glBindVertexArray(0);
+        glDepthFunc(GL_LESS); // Set depth function back to default
+        
         
         // Swap the buffers
         glfwSwapBuffers(window);
@@ -142,6 +214,65 @@ int main()
     
     glfwTerminate();
     return 0;
+}
+
+// Loads a cubemap texture from 6 individual texture faces
+// Order should be:
+// +X (right)
+// -X (left)
+// +Y (top)
+// -Y (bottom)
+// +Z (front)
+// -Z (back)
+GLuint loadCubemap(vector<const GLchar*> faces)
+{
+    GLuint textureID;
+    glGenTextures(1, &textureID);
+    
+    int width,height;
+    unsigned char* image;
+    
+    glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
+    for(GLuint i = 0; i < faces.size(); i++)
+    {
+        image = SOIL_load_image(faces[i], &width, &height, 0, SOIL_LOAD_RGB);
+        glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+        SOIL_free_image_data(image);
+    }
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+    
+    return textureID;
+}
+
+
+// This function loads a texture from file. Note: texture loading functions like these are usually
+// managed by a 'Resource Manager' that manages all resources (like textures, models, audio).
+// For learning purposes we'll just define it as a utility function.
+GLuint loadTexture(GLchar* path)
+{
+    //Generate texture ID and load texture data
+    GLuint textureID;
+    glGenTextures(1, &textureID);
+    int width,height;
+    unsigned char* image = SOIL_load_image(path, &width, &height, 0, SOIL_LOAD_RGB);
+    // Assign texture to ID
+    glBindTexture(GL_TEXTURE_2D, textureID);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+    glGenerateMipmap(GL_TEXTURE_2D);
+    
+    // Parameters
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glBindTexture(GL_TEXTURE_2D, 0);
+    SOIL_free_image_data(image);
+    return textureID;
 }
 
 #pragma region "User input"
