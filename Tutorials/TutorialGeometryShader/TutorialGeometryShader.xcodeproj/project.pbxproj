@@ -11,6 +11,8 @@
 		0952555A1E09BA9E00A4229B /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 095255591E09BA9E00A4229B /* OpenGL.framework */; };
 		0952555E1E09BABB00A4229B /* libGLEW.2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0952555D1E09BABA00A4229B /* libGLEW.2.0.0.dylib */; };
 		095255601E09BACE00A4229B /* libglfw3.3.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0952555F1E09BACE00A4229B /* libglfw3.3.2.dylib */; };
+		095255621E09C41300A4229B /* libSOIL.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 095255611E09C41300A4229B /* libSOIL.dylib */; };
+		095255641E09C45700A4229B /* libassimp.3.3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 095255631E09C45700A4229B /* libassimp.3.3.1.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,6 +33,8 @@
 		095255591E09BA9E00A4229B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		0952555D1E09BABA00A4229B /* libGLEW.2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.0.0.dylib; path = ../../../../../../usr/local/Cellar/glew/2.0.0/lib/libGLEW.2.0.0.dylib; sourceTree = "<group>"; };
 		0952555F1E09BACE00A4229B /* libglfw3.3.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw3.3.2.dylib; path = ../../../../../../usr/local/Cellar/glfw3/3.2.1/lib/libglfw3.3.2.dylib; sourceTree = "<group>"; };
+		095255611E09C41300A4229B /* libSOIL.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libSOIL.dylib; path = ../../../../../../opt/local/lib/libSOIL.dylib; sourceTree = "<group>"; };
+		095255631E09C45700A4229B /* libassimp.3.3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libassimp.3.3.1.dylib; path = ../../../../../../usr/local/Cellar/assimp/3.3.1/lib/libassimp.3.3.1.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +42,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				095255641E09C45700A4229B /* libassimp.3.3.1.dylib in Frameworks */,
+				095255621E09C41300A4229B /* libSOIL.dylib in Frameworks */,
 				095255601E09BACE00A4229B /* libglfw3.3.2.dylib in Frameworks */,
 				0952555E1E09BABB00A4229B /* libGLEW.2.0.0.dylib in Frameworks */,
 				0952555A1E09BA9E00A4229B /* OpenGL.framework in Frameworks */,
@@ -50,6 +56,8 @@
 		095255461E09BA7B00A4229B = {
 			isa = PBXGroup;
 			children = (
+				095255631E09C45700A4229B /* libassimp.3.3.1.dylib */,
+				095255611E09C41300A4229B /* libSOIL.dylib */,
 				0952555F1E09BACE00A4229B /* libglfw3.3.2.dylib */,
 				0952555D1E09BABA00A4229B /* libGLEW.2.0.0.dylib */,
 				095255591E09BA9E00A4229B /* OpenGL.framework */,
@@ -221,11 +229,16 @@
 		095255571E09BA7B00A4229B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				HEADER_SEARCH_PATHS = /usr/local/include;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
+					/opt/local/include,
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/Cellar/glew/2.0.0/lib,
 					/usr/local/Cellar/glfw3/3.2.1/lib,
+					/opt/local/lib,
+					/usr/local/Cellar/assimp/3.3.1/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -234,11 +247,16 @@
 		095255581E09BA7B00A4229B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				HEADER_SEARCH_PATHS = /usr/local/include;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
+					/opt/local/include,
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/Cellar/glew/2.0.0/lib,
 					/usr/local/Cellar/glfw3/3.2.1/lib,
+					/opt/local/lib,
+					/usr/local/Cellar/assimp/3.3.1/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -263,6 +281,7 @@
 				095255581E09BA7B00A4229B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

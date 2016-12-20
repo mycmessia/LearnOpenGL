@@ -5,7 +5,6 @@
 //  Created by 梅宇宸 on 16/12/20.
 //  Copyright © 2016年 梅宇宸. All rights reserved.
 //
-
 // GLEW
 #define GLEW_STATIC
 #include <GL/glew.h>
@@ -15,9 +14,30 @@
 
 // GL includes
 #include "../../../Engines/Shader.h"
+#include "../../../Engines/Camera.h"
+#include "../../../Engines/Model.h"
+
+// GLM Mathemtics
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 // Properties
 GLuint screenWidth = 800, screenHeight = 600;
+
+// Function prototypes
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
+void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+void Do_Movement();
+
+// Camera
+Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+bool keys[1024];
+GLfloat lastX = 400, lastY = 300;
+bool firstMouse = true;
+
+GLfloat deltaTime = 0.0f;
+GLfloat lastFrame = 0.0f;
 
 // The MAIN function, from here we start our application and run our Game loop
 int main()
@@ -33,8 +53,12 @@ int main()
     GLFWwindow* window = glfwCreateWindow(screenWidth, screenHeight, "LearnOpenGL", nullptr, nullptr); // Windowed
     glfwMakeContextCurrent(window);
     
+    // Set the required callback functions
+    glfwSetKeyCallback(window, key_callback);
+    glfwSetCursorPosCallback(window, mouse_callback);
+    
     // Options
-//    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     
     // Initialize GLEW to setup the OpenGL Function pointers
     glewExperimental = GL_TRUE;
@@ -46,54 +70,46 @@ int main()
     glfwGetFramebufferSize (window, &width, &height);
     glViewport (0, 0, width, height);
     
+    // Setup OpenGL options
+    glEnable(GL_DEPTH_TEST);
+    
     // Setup and compile our shaders
-    Shader shader(SHADER_FULL_DIR"geometry.vs", SHADER_FULL_DIR"geometry.frag", SHADER_FULL_DIR"geometry.gs");
+    Shader shader(SHADER_FULL_DIR"explode.vs", SHADER_FULL_DIR"explode.frag", SHADER_FULL_DIR"explode.gs");
     
-    // Vertex data
-    GLfloat points[] = {
-        // positions  // colors
-        -0.5f,  0.5f, 1.0f, 0.0f, 0.0f, // Top-left
-         0.5f,  0.5f, 0.0f, 1.0f, 0.0f, // Top-right
-         0.5f, -0.5f, 0.0f, 0.0f, 1.0f, // Bottom-right
-        -0.5f, -0.5f, 1.0f, 1.0f, 0.0f  // Bottom-left
-    };
+    // Load models
+    Model nanosuit(MODEL_FULL_DIR"nanosuit/nanosuit.obj");
     
-    GLuint VBO, VAO;
-    
-    glGenVertexArrays (1, &VAO);
-    glGenBuffers(1, &VBO);
-    
-    glBindVertexArray (VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(points), &points, GL_STATIC_DRAW);
-        // These 4 sentences must bind vao and vbo
-        // which means these operations must affect this vao and vbo at the same time
-        // In other words, these operations must both vao and vbo to work on
-        glEnableVertexAttribArray (0);
-        glVertexAttribPointer (0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), 0);
-        glEnableVertexAttribArray (1);
-        glVertexAttribPointer (1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(2 * sizeof(GLfloat)));
-    glBindBuffer (GL_ARRAY_BUFFER, 0);
-    glBindVertexArray (0);
-    
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    // Set projection matrix
+    glm::mat4 projection = glm::perspective(45.0f, (GLfloat)screenWidth/(GLfloat)screenHeight, 1.0f, 100.0f);
+    shader.Use();
+    glUniformMatrix4fv(glGetUniformLocation(shader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
     
     // Game loop
     while(!glfwWindowShouldClose(window))
     {
+        // Set frame time
+        GLfloat currentFrame = glfwGetTime();
+        deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+        
         // Check and call events
-        // This also make the while doesn't run too fast
         glfwPollEvents();
+        Do_Movement();
         
         // Clear buffers
-        glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
-        // Draw points
-        shader.Use();
-        glBindVertexArray(VAO);
-        glDrawArrays(GL_POINTS, 0, 4);
-        glBindVertexArray(0);
+        // Add transformation matrices
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(camera.GetViewMatrix()));
+        glm::mat4 model;
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        
+        // Add time component to geometry shader in the form of a uniform
+        glUniform1f(glGetUniformLocation(shader.Program, "time"), glfwGetTime ());
+        
+        // Draw model
+        nanosuit.Draw(shader);
         
         // Swap the buffers
         glfwSwapBuffers(window);
@@ -102,3 +118,51 @@ int main()
     glfwTerminate();
     return 0;
 }
+
+#pragma region "User input"
+
+// Moves/alters the camera positions based on user input
+void Do_Movement()
+{
+    // Camera controls
+    if(keys[GLFW_KEY_W])
+        camera.ProcessKeyboard(FORWARD, deltaTime);
+    if(keys[GLFW_KEY_S])
+        camera.ProcessKeyboard(BACKWARD, deltaTime);
+    if(keys[GLFW_KEY_A])
+        camera.ProcessKeyboard(LEFT, deltaTime);
+    if(keys[GLFW_KEY_D])
+        camera.ProcessKeyboard(RIGHT, deltaTime);
+}
+
+// Is called whenever a key is pressed/released via GLFW
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
+{
+    if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, GL_TRUE);
+    
+    if(action == GLFW_PRESS)
+        keys[key] = true;
+    else if(action == GLFW_RELEASE)
+        keys[key] = false;
+}
+
+void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+{
+    if(firstMouse)
+    {
+        lastX = xpos;
+        lastY = ypos;
+        firstMouse = false;
+    }
+    
+    GLfloat xoffset = xpos - lastX;
+    GLfloat yoffset = lastY - ypos;
+    
+    lastX = xpos;
+    lastY = ypos;
+    
+    camera.ProcessMouseMovement(xoffset, yoffset);
+}	
+
+#pragma endregion
