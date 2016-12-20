@@ -146,7 +146,7 @@ int main()
     
     // OpenGL options
     glEnable(GL_DEPTH_TEST);
-    glEnable(GL_PROGRAM_POINT_SIZE);
+    glEnable(GL_PROGRAM_POINT_SIZE);    // for gl_PointSize in vertex shader
     
     // Game loop
     while (!glfwWindowShouldClose(window))
@@ -183,7 +183,7 @@ int main()
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
         
         glBindVertexArray(lampVAO);
-        glDrawArrays(GL_POINTS, 0, 36);
+        glDrawArrays(GL_POINTS, 0, 36); // draw points
         glBindVertexArray(0);
         
         // Swap the screen buffers
