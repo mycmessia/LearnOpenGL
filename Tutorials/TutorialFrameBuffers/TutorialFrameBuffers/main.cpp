@@ -71,7 +71,7 @@ int main()
     glfwSetScrollCallback(window, scroll_callback);
     
     // Options
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+//    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     
     // Initialize GLEW to setup the OpenGL Function pointers
     glewExperimental = GL_TRUE;
