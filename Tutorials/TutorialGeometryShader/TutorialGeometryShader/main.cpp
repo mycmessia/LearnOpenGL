@@ -74,7 +74,8 @@ int main()
     glEnable(GL_DEPTH_TEST);
     
     // Setup and compile our shaders
-    Shader shader(SHADER_FULL_DIR"explode.vs", SHADER_FULL_DIR"explode.frag", SHADER_FULL_DIR"explode.gs");
+    Shader shader (SHADER_FULL_DIR"basic.vs", SHADER_FULL_DIR"basic.frag");
+    Shader normalShader (SHADER_FULL_DIR"normals.vs", SHADER_FULL_DIR"normals.frag", SHADER_FULL_DIR"normals.gs");
     
     // Load models
     Model nanosuit(MODEL_FULL_DIR"nanosuit/nanosuit.obj");
@@ -83,6 +84,9 @@ int main()
     glm::mat4 projection = glm::perspective(45.0f, (GLfloat)screenWidth/(GLfloat)screenHeight, 1.0f, 100.0f);
     shader.Use();
     glUniformMatrix4fv(glGetUniformLocation(shader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+    // Also one for normal shader
+    normalShader.Use();
+    glUniformMatrix4fv(glGetUniformLocation(normalShader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
     
     // Game loop
     while(!glfwWindowShouldClose(window))
@@ -101,15 +105,22 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
         // Add transformation matrices
+        shader.Use();
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(camera.GetViewMatrix()));
         glm::mat4 model;
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
         
-        // Add time component to geometry shader in the form of a uniform
-        glUniform1f(glGetUniformLocation(shader.Program, "time"), glfwGetTime ());
-        
         // Draw model
         nanosuit.Draw(shader);
+        
+        // Now set transformation matrices for drawing normals
+        normalShader.Use();
+        glUniformMatrix4fv(glGetUniformLocation(normalShader.Program, "view"), 1, GL_FALSE, glm::value_ptr(camera.GetViewMatrix()));
+        model = glm::mat4();
+        glUniformMatrix4fv(glGetUniformLocation(normalShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        
+        // And draw model again, this time only drawing normal vectors using the geometry shaders (on top of previous model)
+        nanosuit.Draw(normalShader);
         
         // Swap the buffers
         glfwSwapBuffers(window);
