@@ -1,6 +1,6 @@
 # LearnOpenGL
-This is a XCode project about OpenGL tutorials and exercises I wrote or modified.<br /><br />
-Here are some screen shots of projects in this XCode workplace.<br /><br />
+This is a XCode workspace about OpenGL tutorials and exercises I wrote or modified.<br /><br />
+Here are some screen shots of projects in this XCode workspace.<br /><br />
 1. Multi lights which contains point lights, directional light and spot light.<br /><br />
 ![](https://github.com/mycmessia/LearnOpenGL/blob/master/Tutorials/TutorialMultipleLights/multiple%20lights.png)<br /><br />
 2. Draw an outline of an object use stencil buffer.<br /><br />
