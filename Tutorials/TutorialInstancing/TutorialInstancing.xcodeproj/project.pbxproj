@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		095255721E0AC97800A4229B /* instancing_quad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 095255711E0AC97800A4229B /* instancing_quad.cpp */; };
 		095255791E0AC9DF00A4229B /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 095255781E0AC9DF00A4229B /* OpenGL.framework */; };
 		0952557B1E0AC9EF00A4229B /* libGLEW.2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0952557A1E0AC9EF00A4229B /* libGLEW.2.0.0.dylib */; };
 		0952557D1E0AC9FD00A4229B /* libglfw3.3.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0952557C1E0AC9FD00A4229B /* libglfw3.3.2.dylib */; };
 		0952557F1E0ACB1C00A4229B /* libSOIL.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0952557E1E0ACB1C00A4229B /* libSOIL.dylib */; };
+		095255811E0AD2A200A4229B /* asteroid_field.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 095255801E0AD2A200A4229B /* asteroid_field.cpp */; };
+		095255831E0AD51300A4229B /* libassimp.3.3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 095255821E0AD51300A4229B /* libassimp.3.3.1.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,11 +29,12 @@
 
 /* Begin PBXFileReference section */
 		0952556E1E0AC97800A4229B /* TutorialInstancing */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TutorialInstancing; sourceTree = BUILT_PRODUCTS_DIR; };
-		095255711E0AC97800A4229B /* instancing_quad.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = instancing_quad.cpp; sourceTree = "<group>"; };
 		095255781E0AC9DF00A4229B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		0952557A1E0AC9EF00A4229B /* libGLEW.2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.0.0.dylib; path = ../../../../../../usr/local/Cellar/glew/2.0.0/lib/libGLEW.2.0.0.dylib; sourceTree = "<group>"; };
 		0952557C1E0AC9FD00A4229B /* libglfw3.3.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw3.3.2.dylib; path = ../../../../../../usr/local/Cellar/glfw3/3.2.1/lib/libglfw3.3.2.dylib; sourceTree = "<group>"; };
 		0952557E1E0ACB1C00A4229B /* libSOIL.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libSOIL.dylib; path = ../../../../../../opt/local/lib/libSOIL.dylib; sourceTree = "<group>"; };
+		095255801E0AD2A200A4229B /* asteroid_field.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = asteroid_field.cpp; sourceTree = "<group>"; };
+		095255821E0AD51300A4229B /* libassimp.3.3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libassimp.3.3.1.dylib; path = ../../../../../../usr/local/Cellar/assimp/3.3.1/lib/libassimp.3.3.1.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				095255831E0AD51300A4229B /* libassimp.3.3.1.dylib in Frameworks */,
 				0952557F1E0ACB1C00A4229B /* libSOIL.dylib in Frameworks */,
 				0952557D1E0AC9FD00A4229B /* libglfw3.3.2.dylib in Frameworks */,
 				0952557B1E0AC9EF00A4229B /* libGLEW.2.0.0.dylib in Frameworks */,
@@ -53,6 +56,7 @@
 		095255651E0AC97800A4229B = {
 			isa = PBXGroup;
 			children = (
+				095255821E0AD51300A4229B /* libassimp.3.3.1.dylib */,
 				0952557E1E0ACB1C00A4229B /* libSOIL.dylib */,
 				0952557C1E0AC9FD00A4229B /* libglfw3.3.2.dylib */,
 				0952557A1E0AC9EF00A4229B /* libGLEW.2.0.0.dylib */,
@@ -73,7 +77,7 @@
 		095255701E0AC97800A4229B /* TutorialInstancing */ = {
 			isa = PBXGroup;
 			children = (
-				095255711E0AC97800A4229B /* instancing_quad.cpp */,
+				095255801E0AD2A200A4229B /* asteroid_field.cpp */,
 			);
 			path = TutorialInstancing;
 			sourceTree = "<group>";
@@ -134,7 +138,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				095255721E0AC97800A4229B /* instancing_quad.cpp in Sources */,
+				095255811E0AD2A200A4229B /* asteroid_field.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,6 +238,7 @@
 					/usr/local/Cellar/glew/2.0.0/lib,
 					/usr/local/Cellar/glfw3/3.2.1/lib,
 					/opt/local/lib,
+					/usr/local/Cellar/assimp/3.3.1/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -251,6 +256,7 @@
 					/usr/local/Cellar/glew/2.0.0/lib,
 					/usr/local/Cellar/glfw3/3.2.1/lib,
 					/opt/local/lib,
+					/usr/local/Cellar/assimp/3.3.1/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -275,6 +281,7 @@
 				095255771E0AC97800A4229B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
