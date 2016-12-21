@@ -75,7 +75,8 @@ int main()
     glEnable(GL_DEPTH_TEST);
     
     // Setup and compile our shaders
-    Shader shader(SHADER_FULL_DIR"instancing_asteroid.vs", SHADER_FULL_DIR"instancing_asteroid.frag");
+    Shader planetShader(SHADER_FULL_DIR"modelBasic.vs", SHADER_FULL_DIR"modelBasic.frag");
+    Shader instanceShader(SHADER_FULL_DIR"instancing_asteroid.vs", SHADER_FULL_DIR"instancing_asteroid.frag");
     
     // Load models
     Model rock(MODEL_FULL_DIR"rock/rock.obj");
@@ -83,25 +84,28 @@ int main()
     
     // Set projection matrix
     glm::mat4 projection = glm::perspective(45.0f, (GLfloat)screenWidth/(GLfloat)screenHeight, 1.0f, 10000.0f);
-    shader.Use();
-    glUniformMatrix4fv(glGetUniformLocation(shader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+    planetShader.Use();
+    glUniformMatrix4fv(glGetUniformLocation(planetShader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+    // Also of instance shader
+    instanceShader.Use();
+    glUniformMatrix4fv(glGetUniformLocation(instanceShader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
     
     // Generate a large list of semi-random model transformation matrices
-    GLuint amount = 1000;
+    GLuint amount = 2000;
     glm::mat4* modelMatrices;
     modelMatrices = new glm::mat4[amount];
     srand(glfwGetTime()); // initialize random seed
-    GLfloat radius = 50.0;
-    GLfloat offset = 2.5f;
+    GLfloat radius = 150.0f;
+    GLfloat offset = 25.0f;
     for(GLuint i = 0; i < amount; i++)
     {
         glm::mat4 model;
-        // 1. Translation: displace along circle with 'radius' in range [-offset, offset]
+        // 1. Translation: Randomly displace along circle with radius 'radius' in range [-offset, offset]
         GLfloat angle = (GLfloat)i / (GLfloat)amount * 360.0f;
         GLfloat displacement = (rand() % (GLint)(2 * offset * 100)) / 100.0f - offset;
         GLfloat x = sin(angle) * radius + displacement;
         displacement = (rand() % (GLint)(2 * offset * 100)) / 100.0f - offset;
-        GLfloat y = displacement * 0.4f; // Keep height of asteroid field smaller compared to width of x and z
+        GLfloat y = -2.5f + displacement * 0.4f; // Keep height of asteroid field smaller compared to width of x and z
         displacement = (rand() % (GLint)(2 * offset * 100)) / 100.0f - offset;
         GLfloat z = cos(angle) * radius + displacement;
         model = glm::translate(model, glm::vec3(x, y, z));
@@ -116,6 +120,37 @@ int main()
         
         // 4. Now add to list of matrices
         modelMatrices[i] = model;
+    }
+    
+    // forward declare the buffer
+    GLuint buffer;
+    glGenBuffers(1, &buffer);
+    glBindBuffer(GL_ARRAY_BUFFER, buffer);
+    glBufferData(GL_ARRAY_BUFFER, amount * sizeof(glm::mat4), &modelMatrices[0], GL_STATIC_DRAW);
+    
+    // Set transformation matrices as an instance vertex attribute (with divisor 1)
+    // NOTE: We're cheating a little by taking the, now publicly declared, VAO of the model's mesh(es) and adding new vertexAttribPointers
+    // Normally you'd want to do this in a more organized fashion, but for learning purposes this will do.
+    for(GLuint i = 0; i < rock.meshes.size(); i++)
+    {
+        GLuint VAO = rock.meshes[i].VAO;
+        glBindVertexArray(VAO);
+        // Set attribute pointers for matrix (4 times vec4)
+        glEnableVertexAttribArray(3);
+        glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (GLvoid*)0);
+        glEnableVertexAttribArray(4);
+        glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (GLvoid*)(sizeof(glm::vec4)));
+        glEnableVertexAttribArray(5);
+        glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (GLvoid*)(2 * sizeof(glm::vec4)));
+        glEnableVertexAttribArray(6);
+        glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (GLvoid*)(3 * sizeof(glm::vec4)));
+        
+        glVertexAttribDivisor(3, 1);
+        glVertexAttribDivisor(4, 1);
+        glVertexAttribDivisor(5, 1);
+        glVertexAttribDivisor(6, 1);
+        
+        glBindVertexArray(0);
     }
     
     // Game loop
@@ -135,21 +170,27 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
         // Add transformation matrices
-        shader.Use();
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(camera.GetViewMatrix()));
+        planetShader.Use();
+        glUniformMatrix4fv(glGetUniformLocation(planetShader.Program, "view"), 1, GL_FALSE, glm::value_ptr(camera.GetViewMatrix()));
+        instanceShader.Use();
+        glUniformMatrix4fv(glGetUniformLocation(instanceShader.Program, "view"), 1, GL_FALSE, glm::value_ptr(camera.GetViewMatrix()));
         
         // Draw Planet
+        planetShader.Use();
         glm::mat4 model;
-        model = glm::translate(model, glm::vec3(0.0f, -3.0f, 0.0f));
+        model = glm::translate(model, glm::vec3(0.0f, -5.0f, 0.0f));
         model = glm::scale(model, glm::vec3(4.0f, 4.0f, 4.0f));
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-        planet.Draw(shader);
+        glUniformMatrix4fv(glGetUniformLocation(planetShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        planet.Draw(planetShader);
         
         // Draw meteorites
-        for(GLuint i = 0; i < amount; i++)
+        instanceShader.Use();
+        glBindTexture(GL_TEXTURE_2D, rock.textures_loaded[0].id); // Note we also made the textures_loaded vector public (instead of private) from the model class.
+        for(GLuint i = 0; i < rock.meshes.size(); i++)
         {
-            glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modelMatrices[i]));
-            rock.Draw(shader);
+            glBindVertexArray(rock.meshes[i].VAO);
+            glDrawElementsInstanced(GL_TRIANGLES, (int)rock.meshes[i].indices.size(), GL_UNSIGNED_INT, 0, amount);
+            glBindVertexArray(0);
         }
         
         // Swap the buffers

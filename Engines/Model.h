@@ -37,7 +37,7 @@ class Model
 public:
     /*  Functions   */
     // Constructor, expects a filepath to a 3D model.
-    Model(GLchar* path)
+    Model(const GLchar* path)
     {
         this->loadModel(path);
     }
@@ -49,11 +49,12 @@ public:
             this->meshes[i].Draw(shader);
     }
     
+    vector<Mesh> meshes;
+    vector<Texture> textures_loaded;	// Stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
+    
 private:
     /*  Model Data  */
-    vector<Mesh> meshes;
     string directory;
-    vector<Texture> textures_loaded;	// Stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
     
     /*  Functions   */
     // Loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.

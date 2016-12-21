@@ -95,9 +95,11 @@ public:
         glBindVertexArray(0);
     }
     
+    GLuint VAO;
+    
 private:
     /*  Render data  */
-    GLuint VAO, VBO, EBO;
+    GLuint VBO, EBO;
     
     /*  Functions    */
     // Initializes all the buffer objects/arrays

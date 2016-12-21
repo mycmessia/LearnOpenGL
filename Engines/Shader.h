@@ -70,8 +70,8 @@ public:
         const GLchar * fShaderCode = fragmentCode.c_str();
         // 2. Compile shaders
         GLuint vertex, fragment;
-        GLint success;
-        GLchar infoLog[512];
+//        GLint success;
+//        GLchar infoLog[512];
         // Vertex Shader
         vertex = glCreateShader(GL_VERTEX_SHADER);
         glShaderSource(vertex, 1, &vShaderCode, NULL);
@@ -83,7 +83,7 @@ public:
         glCompileShader(fragment);
         checkCompileErrors(fragment, "FRAGMENT");
         // If geometry shader is given, compile geometry shader
-        GLuint geometry;
+        GLuint geometry = 0;
         if(geometryPath != nullptr)
         {
             const GLchar * gShaderCode = geometryCode.c_str();
