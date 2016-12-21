@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		095255721E0AC97800A4229B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 095255711E0AC97800A4229B /* main.cpp */; };
+		095255721E0AC97800A4229B /* instancing_quad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 095255711E0AC97800A4229B /* instancing_quad.cpp */; };
 		095255791E0AC9DF00A4229B /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 095255781E0AC9DF00A4229B /* OpenGL.framework */; };
 		0952557B1E0AC9EF00A4229B /* libGLEW.2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0952557A1E0AC9EF00A4229B /* libGLEW.2.0.0.dylib */; };
 		0952557D1E0AC9FD00A4229B /* libglfw3.3.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0952557C1E0AC9FD00A4229B /* libglfw3.3.2.dylib */; };
@@ -28,7 +28,7 @@
 
 /* Begin PBXFileReference section */
 		0952556E1E0AC97800A4229B /* TutorialInstancing */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TutorialInstancing; sourceTree = BUILT_PRODUCTS_DIR; };
-		095255711E0AC97800A4229B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		095255711E0AC97800A4229B /* instancing_quad.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = instancing_quad.cpp; sourceTree = "<group>"; };
 		095255781E0AC9DF00A4229B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		0952557A1E0AC9EF00A4229B /* libGLEW.2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.0.0.dylib; path = ../../../../../../usr/local/Cellar/glew/2.0.0/lib/libGLEW.2.0.0.dylib; sourceTree = "<group>"; };
 		0952557C1E0AC9FD00A4229B /* libglfw3.3.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw3.3.2.dylib; path = ../../../../../../usr/local/Cellar/glfw3/3.2.1/lib/libglfw3.3.2.dylib; sourceTree = "<group>"; };
@@ -73,7 +73,7 @@
 		095255701E0AC97800A4229B /* TutorialInstancing */ = {
 			isa = PBXGroup;
 			children = (
-				095255711E0AC97800A4229B /* main.cpp */,
+				095255711E0AC97800A4229B /* instancing_quad.cpp */,
 			);
 			path = TutorialInstancing;
 			sourceTree = "<group>";
@@ -134,7 +134,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				095255721E0AC97800A4229B /* main.cpp in Sources */,
+				095255721E0AC97800A4229B /* instancing_quad.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

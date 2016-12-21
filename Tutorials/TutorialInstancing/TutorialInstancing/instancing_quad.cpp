@@ -136,6 +136,7 @@ int main()
         ss << i;
         index = ss.str();
         GLint location = glGetUniformLocation(quadShader.Program, ("offsets[" + index + "]").c_str());
+//        std::cout << translations[i].x << ", " << translations[i].y << std::endl;
         glUniform2f(location, translations[i].x, translations[i].y);
     }
     
