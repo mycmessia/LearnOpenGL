@@ -1,0 +1,282 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		095255911E0C1BC300A4229B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 095255901E0C1BC300A4229B /* main.cpp */; };
+		095255981E0C1BD400A4229B /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 095255971E0C1BD400A4229B /* OpenGL.framework */; };
+		0952559A1E0C1BE100A4229B /* libGLEW.2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 095255991E0C1BE100A4229B /* libGLEW.2.0.0.dylib */; };
+		0952559C1E0C1BEB00A4229B /* libglfw3.3.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0952559B1E0C1BEB00A4229B /* libglfw3.3.2.dylib */; };
+		0952559E1E0C1BF900A4229B /* libSOIL.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0952559D1E0C1BF900A4229B /* libSOIL.dylib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0952558B1E0C1BC300A4229B /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0952558D1E0C1BC300A4229B /* TutorialAdvancedLighting */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TutorialAdvancedLighting; sourceTree = BUILT_PRODUCTS_DIR; };
+		095255901E0C1BC300A4229B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		095255971E0C1BD400A4229B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		095255991E0C1BE100A4229B /* libGLEW.2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.0.0.dylib; path = ../../../../../../usr/local/Cellar/glew/2.0.0/lib/libGLEW.2.0.0.dylib; sourceTree = "<group>"; };
+		0952559B1E0C1BEB00A4229B /* libglfw3.3.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw3.3.2.dylib; path = ../../../../../../usr/local/Cellar/glfw3/3.2.1/lib/libglfw3.3.2.dylib; sourceTree = "<group>"; };
+		0952559D1E0C1BF900A4229B /* libSOIL.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libSOIL.dylib; path = ../../../../../../opt/local/lib/libSOIL.dylib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0952558A1E0C1BC300A4229B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0952559E1E0C1BF900A4229B /* libSOIL.dylib in Frameworks */,
+				0952559C1E0C1BEB00A4229B /* libglfw3.3.2.dylib in Frameworks */,
+				0952559A1E0C1BE100A4229B /* libGLEW.2.0.0.dylib in Frameworks */,
+				095255981E0C1BD400A4229B /* OpenGL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		095255841E0C1BC300A4229B = {
+			isa = PBXGroup;
+			children = (
+				0952559D1E0C1BF900A4229B /* libSOIL.dylib */,
+				0952559B1E0C1BEB00A4229B /* libglfw3.3.2.dylib */,
+				095255991E0C1BE100A4229B /* libGLEW.2.0.0.dylib */,
+				095255971E0C1BD400A4229B /* OpenGL.framework */,
+				0952558F1E0C1BC300A4229B /* TutorialAdvancedLighting */,
+				0952558E1E0C1BC300A4229B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0952558E1E0C1BC300A4229B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0952558D1E0C1BC300A4229B /* TutorialAdvancedLighting */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0952558F1E0C1BC300A4229B /* TutorialAdvancedLighting */ = {
+			isa = PBXGroup;
+			children = (
+				095255901E0C1BC300A4229B /* main.cpp */,
+			);
+			path = TutorialAdvancedLighting;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0952558C1E0C1BC300A4229B /* TutorialAdvancedLighting */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 095255941E0C1BC300A4229B /* Build configuration list for PBXNativeTarget "TutorialAdvancedLighting" */;
+			buildPhases = (
+				095255891E0C1BC300A4229B /* Sources */,
+				0952558A1E0C1BC300A4229B /* Frameworks */,
+				0952558B1E0C1BC300A4229B /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TutorialAdvancedLighting;
+			productName = TutorialAdvancedLighting;
+			productReference = 0952558D1E0C1BC300A4229B /* TutorialAdvancedLighting */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		095255851E0C1BC300A4229B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "梅宇宸";
+				TargetAttributes = {
+					0952558C1E0C1BC300A4229B = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+				};
+			};
+			buildConfigurationList = 095255881E0C1BC300A4229B /* Build configuration list for PBXProject "TutorialAdvancedLighting" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 095255841E0C1BC300A4229B;
+			productRefGroup = 0952558E1E0C1BC300A4229B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0952558C1E0C1BC300A4229B /* TutorialAdvancedLighting */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		095255891E0C1BC300A4229B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				095255911E0C1BC300A4229B /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		095255921E0C1BC300A4229B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		095255931E0C1BC300A4229B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		095255951E0C1BC300A4229B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
+					/opt/local/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/glew/2.0.0/lib,
+					/usr/local/Cellar/glfw3/3.2.1/lib,
+					/opt/local/lib,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		095255961E0C1BC300A4229B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
+					/opt/local/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/glew/2.0.0/lib,
+					/usr/local/Cellar/glfw3/3.2.1/lib,
+					/opt/local/lib,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		095255881E0C1BC300A4229B /* Build configuration list for PBXProject "TutorialAdvancedLighting" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				095255921E0C1BC300A4229B /* Debug */,
+				095255931E0C1BC300A4229B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		095255941E0C1BC300A4229B /* Build configuration list for PBXNativeTarget "TutorialAdvancedLighting" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				095255951E0C1BC300A4229B /* Debug */,
+				095255961E0C1BC300A4229B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 095255851E0C1BC300A4229B /* Project object */;
+}
