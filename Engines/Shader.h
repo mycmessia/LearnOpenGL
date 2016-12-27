@@ -18,6 +18,7 @@
 
 #define SHADER_FULL_DIR "/Users/meiyuchen/Workspaces/LearnOpenGL/Shaders/"
 #define TEXTURE_FULL_DIR "/Users/meiyuchen/Workspaces/LearnOpenGL/Textures/"
+#define FONT_FULL_DIR "/Users/meiyuchen/Workspaces/LearnOpenGL/Fonts/"
 
 class Shader
 {

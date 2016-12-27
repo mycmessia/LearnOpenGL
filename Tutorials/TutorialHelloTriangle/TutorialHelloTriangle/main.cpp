@@ -110,7 +110,8 @@ int main()
     GLfloat vertices[] = {
         -0.5f, -0.5f, 0.0f, // Left
          0.5f, -0.5f, 0.0f, // Right
-         0.0f,  0.5f, 0.0f  // Top
+        -0.5f,  0.5f, 0.0f, // Top
+         0.5f,  0.5f, 0.0f
     };
     GLuint VBO, VAO;
     glGenVertexArrays(1, &VAO);
@@ -142,7 +143,7 @@ int main()
         // Draw our first triangle
         glUseProgram(shaderProgram);
         glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
         glBindVertexArray(0);
         
         // Swap the screen buffers
