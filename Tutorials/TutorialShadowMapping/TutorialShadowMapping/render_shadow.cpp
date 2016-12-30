@@ -201,12 +201,12 @@ int main()
         RenderScene(shader);
         
         // 3. DEBUG: visualize depth map by rendering it to plane
-//        debugDepthQuad.Use();
-//        glUniform1f(glGetUniformLocation(debugDepthQuad.Program, "near_plane"), near_plane);
-//        glUniform1f(glGetUniformLocation(debugDepthQuad.Program, "far_plane"), far_plane);
-//        glActiveTexture(GL_TEXTURE0);
-//        glBindTexture(GL_TEXTURE_2D, depthMap);
-//        RenderQuad();
+        debugDepthQuad.Use();
+        glUniform1f(glGetUniformLocation(debugDepthQuad.Program, "near_plane"), near_plane);
+        glUniform1f(glGetUniformLocation(debugDepthQuad.Program, "far_plane"), far_plane);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, depthMap);
+        RenderQuad();
         
         
         // Swap the buffers
@@ -252,11 +252,11 @@ void RenderQuad()
     if (quadVAO == 0)
     {
         GLfloat quadVertices[] = {
-            // Positions        // Texture Coords
+            // Positions         // Texture Coords
             -1.0f,  1.0f, 0.0f,  0.0f, 1.0f,
-            -1.0f, -1.0f, 0.0f,  0.0f, 0.0f,
-            1.0f,  1.0f, 0.0f,  1.0f, 1.0f,
-            1.0f, -1.0f, 0.0f,  1.0f, 0.0f,
+            -1.0f,  0.5f, 0.0f,  0.0f, 0.0f,
+            -0.5f,  1.0f, 0.0f,  1.0f, 1.0f,
+            -0.5f,  0.5f, 0.0f,  1.0f, 0.0f,
         };
         // Setup plane VAO
         glGenVertexArrays(1, &quadVAO);
