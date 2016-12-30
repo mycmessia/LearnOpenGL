@@ -117,7 +117,7 @@ int main()
 	glm::vec3 lightPos(-2.0f, 4.0f, -1.0f);
 
 	// Load textures
-	woodTexture = loadTexture(TEXTURE_FULL_DIR "wood.png");
+	woodTexture = loadTexture(TEXTURE_FULL_DIR"wood.jpg");
 
 	// Configure depth map FBO
 	const GLuint SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;

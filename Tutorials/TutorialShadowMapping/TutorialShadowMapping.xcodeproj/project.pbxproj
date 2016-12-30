@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		09D3045D1E1563800040217D /* render_depthmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09D3045C1E1563800040217D /* render_depthmap.cpp */; };
+		096E476C1E1697C600A826F7 /* render_shadow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 096E476B1E1697C600A826F7 /* render_shadow.cpp */; };
 		09D304641E15639B0040217D /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09D304631E15639B0040217D /* OpenGL.framework */; };
 		09D304661E1563A70040217D /* libGLEW.2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 09D304651E1563A70040217D /* libGLEW.2.0.0.dylib */; };
 		09D304681E1563B20040217D /* libglfw3.3.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 09D304671E1563B20040217D /* libglfw3.3.2.dylib */; };
@@ -27,8 +27,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		096E476B1E1697C600A826F7 /* render_shadow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = render_shadow.cpp; sourceTree = "<group>"; };
 		09D304591E1563800040217D /* TutorialShadowMapping */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TutorialShadowMapping; sourceTree = BUILT_PRODUCTS_DIR; };
-		09D3045C1E1563800040217D /* render_depthmap.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = render_depthmap.cpp; sourceTree = "<group>"; };
 		09D304631E15639B0040217D /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		09D304651E1563A70040217D /* libGLEW.2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.0.0.dylib; path = ../../../../../../usr/local/Cellar/glew/2.0.0/lib/libGLEW.2.0.0.dylib; sourceTree = "<group>"; };
 		09D304671E1563B20040217D /* libglfw3.3.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw3.3.2.dylib; path = ../../../../../../usr/local/Cellar/glfw3/3.2.1/lib/libglfw3.3.2.dylib; sourceTree = "<group>"; };
@@ -73,7 +73,7 @@
 		09D3045B1E1563800040217D /* TutorialShadowMapping */ = {
 			isa = PBXGroup;
 			children = (
-				09D3045C1E1563800040217D /* render_depthmap.cpp */,
+				096E476B1E1697C600A826F7 /* render_shadow.cpp */,
 			);
 			path = TutorialShadowMapping;
 			sourceTree = "<group>";
@@ -134,7 +134,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09D3045D1E1563800040217D /* render_depthmap.cpp in Sources */,
+				096E476C1E1697C600A826F7 /* render_shadow.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
